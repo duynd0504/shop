@@ -1,3 +1,4 @@
+{{-- Trang chu  --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -355,6 +356,7 @@
                  
 
                    @yield('content')
+                   
 
                 </div>
             </div>

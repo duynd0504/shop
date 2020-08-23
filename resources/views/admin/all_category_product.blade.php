@@ -13,20 +13,35 @@
              <option value="2">Bulk edit</option>
              <option value="3">Export</option>
            </select>
-           <button class="btn btn-sm btn-default">Apply</button>                
+           <button class="btn btn-sm btn-info">Apply</button>    
+           <a href="{{URL::to('/add-category-product')}}" > <button class="btn btn-sm btn-danger" type="button" >Thêm Danh Mục</button>    </a>        
          </div>
+         
          <div class="col-sm-4">
          </div>
          <div class="col-sm-3">
+          
+               
            <div class="input-group">
+            
              <input type="text" class="input-sm form-control" placeholder="Search">
              <span class="input-group-btn">
-               <button class="btn btn-sm btn-default" type="button">Go!</button>
+               <button class="btn btn-sm btn-success" type="button">Tìm!</button>
+              
+               
              </span>
            </div>
          </div>
        </div>
        <div class="table-responsive">
+        <?php 
+        $message = Session::get('message'); 
+		    if($message){
+			  echo '<span class="text-alert">'. $message. '</span>';
+        Session::put('message',null); 
+        
+		    }
+	      ?>
          <table class="table table-striped b-t b-light">
            <thead>
              <tr>
@@ -36,26 +51,39 @@
                  </label>
                </th>
                <th>Tên danh mục</th>
+               <th>Mô tả</th>
                <th>Trạng thái</th>
-               <th>Ngày thêm</th>
-               <th>Chi tiết</th>
-               <th>Xoá</th>
+               {{-- <th>Chi tiết</th>
+               <th>Xoá</th> --}}
                <th style="width:30px;"></th>
              </tr>
            </thead>
            <tbody>
+             @foreach ($all_category_product as $key => $cate_pro)
              <tr>
                <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-               <td>Idrawfast prototype design prototype design prototype design prototype design prototype design</td>
-               <td><span class="text-ellipsis">{item.PrHelpText1}</span></td>
-               <td><span class="text-ellipsis">{item.PrHelpText1}</span></td>
-               {{-- <td>
-                 <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
-               </td> --}}
-               <td><a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i></a></td>
-               <td><a href="" class="active" ui-toggle-class=""><i class="fa fa-times text-danger text"></i></a></td>
+               <td>{{$cate_pro->category_name}}</td>
+               <td><span class="text-ellipsis">{{$cate_pro->category_desc}}</span></td>
+              
+              <td><span class="text-ellipsis">
+              <?php if($cate_pro -> category_status == 0){ ?>
+              <a href="{{URL::to('/unactive-category-product/'.$cate_pro->category_id)}}"><span class="badge badge-pill badge-dark">Not Active</span></a> 
+              <?php }else{ ?> 
+              <a href="{{URL::to('/active-category-product/'.$cate_pro->category_id)}}"><span class="badge badge-pill badge-success">Active</span></a>
+              <?php } ?>
+              </span></td> 
+               <td>
+                <a href="{{URL::to('/edit-category-product/'.$cate_pro->category_id)}}">
+                  <span class="glyphicon glyphicon-pencil" style="color: green"></span>
+                </a>
+                <a href="{{URL::to('/delete-category-product/'.$cate_pro->category_id)}}"  onclick="return confirm('Bạn có muốn xoá không ?')">
+                  <span class="glyphicon glyphicon-remove" style="color: #F78199"></span>
+                
+               </td>
+               {{-- <td><a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i></a></td>
+               <td><a href="" class="active" ui-toggle-class=""><i class="fa fa-times text-danger text"></i></a></td> --}}
              </tr>
-             
+             @endforeach 
            </tbody>
          </table>
        </div>

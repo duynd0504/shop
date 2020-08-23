@@ -6,9 +6,16 @@
                  <header class="panel-heading">
                      Thêm Danh Mục Sản Phẩm
                  </header>
+                 {{-- <?php 
+                    $message = Session::get('message'); 
+                    if($message){
+                        echo '<h5>'. $message. '</h5>';
+                        Session::put('message',null); 
+                    }
+	             ?> --}}
                  <div class="panel-body">
                      <div class="position-center">
-                     <form role="form" action="{{URL:to('/save-category-product')}}" method="POST">
+                     <form role="form" action="{{URL::to('/save-category-product')}}" method="POST">
                          {{ csrf_field() }}
                          <div class="form-group">
                              <label for="exampleInputEmail1">Tên danh mục:</label>
@@ -20,9 +27,9 @@
                          </div>
                          <div class="form-group">
                             <label for="exampleInputPassword1">Trạng thái:</label>
-                            <select class="form-control input-sm m-bot15">
-                                 <option>Ẩn</option>
-                                 <option>Hiện</option>
+                            <select class="form-control input-sm m-bot15" name="category_product_status">
+                                 <option value="0">Ẩn</option>
+                                 <option value="1">Hiện</option>
                                  
                             </select>
                          </div>
